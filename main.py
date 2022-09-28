@@ -174,7 +174,8 @@ class Ui_MainWindow(object):
         """计算按钮回调，进行摘要计算。"""
         file_name = self.selected_file_display.text()
         if file_name == "":
-            return self.result_output.insertPlainText("请选择文件！\n")
+            self.result_output.insertPlainText("请选择文件！\n")
+            return
 
         selected_algorithm = self.algorithm_combo_box.currentText()
         if selected_algorithm == "SHA-512":
@@ -187,21 +188,31 @@ class Ui_MainWindow(object):
         with open(file_name, "rb") as file:
             file_size = os.path.getsize(file_name)
             current_progress = 0
-            while True:
-                file_chunk = file.read(65536)
-                current_progress += len(file_chunk)
-                self.progress_bar.setValue(current_progress / file_size * 100)
-                if not file_chunk:
-                    break
-                algorithm.update(file_chunk)
 
-        self.result_output.insertPlainText(
+            while current_progress < file_size:
+                file_chunk = file.read(65536)
+                algorithm.update(file_chunk)
+                current_progress += len(file_chunk)
+                self.progress_bar.setValue((current_progress / file_size) * 100)
+            self.progress_bar.setValue(100)
+
+        # 光标移到文本结尾。
+        # cursor = self.result_output.textCursor()
+        # self.result_output.moveCursor(cursor.End)
+
+        self.result_output.append(
             file_name
             + "的摘要为（已存至剪贴板）：\n"
             + algorithm.hexdigest()
             + '\n\n')
-        clipboard = QApplication.clipboard()  # 创建剪切板对象
-        clipboard.setText(algorithm.hexdigest())  # 用于向剪切板写入文本
+
+        # 进度条自动滚至底部。
+        v_scroll_bar = self.result_output.verticalScrollBar()
+        v_scroll_bar.setValue(v_scroll_bar.maximum())
+
+        # 创建剪切板对象，复制文本。
+        clipboard = QApplication.clipboard()
+        clipboard.setText(algorithm.hexdigest())
 
     def quit_program(self):
         """退出按钮回调。"""
