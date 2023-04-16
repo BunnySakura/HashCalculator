@@ -77,12 +77,27 @@
           </item>
           <item>
            <property name="text">
-            <string>SHA-256</string>
+            <string>SHA256</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>SHA-512</string>
+            <string>SHA512</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>SHA1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>SHA224</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>SHA384</string>
            </property>
           </item>
          </widget>

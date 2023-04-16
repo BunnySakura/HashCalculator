@@ -51,6 +51,9 @@ class Ui_MainWindow(object):
         self.algorithm_combo_box.addItem("")
         self.algorithm_combo_box.addItem("")
         self.algorithm_combo_box.addItem("")
+        self.algorithm_combo_box.addItem("")
+        self.algorithm_combo_box.addItem("")
+        self.algorithm_combo_box.addItem("")
         self.algorithm_combo_box.setObjectName(u"algorithm_combo_box")
 
         self.option_layout.addWidget(self.algorithm_combo_box, 1, 0, 1, 2)
@@ -140,8 +143,11 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u6458\u8981\u8ba1\u7b97V0.0.1", None))
         self.select_file_button.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9", None))
         self.algorithm_combo_box.setItemText(0, QCoreApplication.translate("MainWindow", u"MD5", None))
-        self.algorithm_combo_box.setItemText(1, QCoreApplication.translate("MainWindow", u"SHA-256", None))
-        self.algorithm_combo_box.setItemText(2, QCoreApplication.translate("MainWindow", u"SHA-512", None))
+        self.algorithm_combo_box.setItemText(1, QCoreApplication.translate("MainWindow", u"SHA256", None))
+        self.algorithm_combo_box.setItemText(2, QCoreApplication.translate("MainWindow", u"SHA512", None))
+        self.algorithm_combo_box.setItemText(3, QCoreApplication.translate("MainWindow", u"SHA1", None))
+        self.algorithm_combo_box.setItemText(4, QCoreApplication.translate("MainWindow", u"SHA224", None))
+        self.algorithm_combo_box.setItemText(5, QCoreApplication.translate("MainWindow", u"SHA384", None))
 
         self.algorithm_combo_box.setPlaceholderText(
             QCoreApplication.translate("MainWindow", u"\u8bf7\u9009\u62e9\u6458\u8981\u7b97\u6cd5", None))
@@ -177,11 +183,9 @@ class Ui_MainWindow(object):
             self.result_output.insertPlainText("请选择文件！\n")
             return
 
-        selected_algorithm = self.algorithm_combo_box.currentText()
-        if selected_algorithm == "SHA-512":
-            algorithm = hashlib.sha512()
-        elif selected_algorithm == "SHA-256":
-            algorithm = hashlib.sha256()
+        selected_algorithm = self.algorithm_combo_box.currentText().lower()
+        if hasattr(hashlib, selected_algorithm):
+            algorithm = getattr(hashlib, selected_algorithm)()
         else:
             algorithm = hashlib.md5()
 
