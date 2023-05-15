@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'Ui_MainWindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.2
+## Created by: Qt User Interface Compiler version 6.5.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -146,7 +146,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u6458\u8981\u8ba1\u7b97V0.0.1", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u6458\u8981\u8ba1\u7b97V1.0.1", None))
         self.select_file_button.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9", None))
         self.algorithm_combo_box.setItemText(0, QCoreApplication.translate("MainWindow", u"MD5", None))
         self.algorithm_combo_box.setItemText(1, QCoreApplication.translate("MainWindow", u"SHA256", None))
