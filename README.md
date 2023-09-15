@@ -42,5 +42,5 @@ pip install PySide6
     
   - 打包：
     ```shell
-    ./build.sh
+    python -m nuitka --standalone --show-memory --show-progress --follow-import-to=need --enable-plugin=pyside6 --output-dir=output --windows-disable-console --windows-icon-from-ico=logo.ico --lto=yes --onefile -o HashCalculator main.py
     ```
